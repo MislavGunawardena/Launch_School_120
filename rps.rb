@@ -7,7 +7,7 @@ module UserInput
     'sc' => 'scissors',
     'l' => 'lizard',
     'sp' => 'spock'
-  }.freeze
+  }
 
   def self.prompt_name
     loop do
@@ -107,7 +107,7 @@ class Move
     'scissors' => %w[paper lizard],
     'lizard' => %w[paper spock],
     'spock' => %w[rock scissors]
-  }.freeze
+  }
 
   def self.will_lose_to(move_value)
     VALUES.select do |other_move_value|
