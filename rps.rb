@@ -199,9 +199,9 @@ class Watson < Computer
   # The winning_comp_moves_count is a hash that contains a count for the 
   # number of times each possible move value could have led to a computer
   # win in the past. The 3 move values with the largest count are first
-  # chosen. Then one of these is chosen as the move to be made by Watson
-  # such that the probability of any one of them being chosen is proportional
-  # to their count.
+  # chosen. Then one of these is randomly chosen as the move to be made by 
+  # Watson such that the probability of any one of them being chosen is 
+  # proportional to their count.
   def choose(history)
     winning_moves_count = history.winning_comp_moves_count
     move_value = if winning_moves_count.empty?
