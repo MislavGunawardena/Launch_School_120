@@ -66,6 +66,16 @@ module UserInput
   end
 end
 
+# For each round that is played between the human and the computer, regardless
+# of who won, the program examines the move that the human made and determines
+# the 2 moves that the computer could have made that would have enabled it to
+# win. It keeps a running count of those hypotherical moves in the 
+# winning_comp_moves_count instance variable of the history object.
+# winning_comp_moves_count is a hash where each key is a move name that
+# hypothetically, could have enabled the computer to win on some of the rounds.
+# Corresponding values give the number of times each key could have enabled
+# the computer to win. This information is made use of by the choose method 
+# of the watson object.
 class MoveHistory
   attr_accessor :current_game, :games, :winning_comp_moves_count
 
@@ -186,6 +196,12 @@ class R2D2 < Computer
 end
 
 class Watson < Computer
+  # The winning_comp_moves_count is a hash that contains a count for the 
+  # number of times each possible move value could have led to a computer
+  # win in the past. The 3 move values with the largest count are first
+  # chosen. Then one of these is chosen as the move to be made by Watson
+  # such that the probability of any one of them being chosen is proportional
+  # to their count.
   def choose(history)
     winning_moves_count = history.winning_comp_moves_count
     move_value = if winning_moves_count.empty?
