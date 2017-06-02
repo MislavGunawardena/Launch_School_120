@@ -30,13 +30,6 @@ module UserInput
     end
   end
 
-  def self.prompt_move_choice
-    puts "Choose one of the following: rock, paper, scissors, lizard, or spock:"
-    choice = gets.chomp.downcase
-    puts "Enter either 'sc' for scissors or 'sp' for spock" if choice == 's'
-    choice
-  end
-
   def self.short_move_input?(choice)
     SHORT_MOVE_OPTIONS.keys.include?(choice)
   end
@@ -138,8 +131,7 @@ class Move
   end
 
   def >(other_move)
-    other_move_value = other_move.value
-    DOMINANCE_RULE[value].include?(other_move_value)
+    DOMINANCE_RULE[value].include?(other_move.value)
   end
 end
 
@@ -181,14 +173,14 @@ class Computer < Player
     self.name = computer_name
   end
 
-  def choose
+  def choose(_)
     chosen_value = Move::VALUES.sample
     self.move = Move.new(chosen_value)
   end
 end
 
 class R2D2 < Computer
-  def choose
+  def choose(_)
     available_choices = Move::VALUES - %w[scissors] + %w[rock] * 4
     chosen_value = available_choices.sample
     self.move = Move.new(chosen_value)
@@ -264,7 +256,7 @@ class Round
 
   def play
     human.choose
-    computer.name == 'Watson' ? computer.choose(history) : computer.choose
+    computer.choose(history)
     display_result
     history.update(human.move_value, computer.move_value)
   end
@@ -401,4 +393,3 @@ class RPSGame
 end
 
 RPSGame.new.play
-
