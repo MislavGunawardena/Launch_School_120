@@ -393,3 +393,4 @@ class RPSGame
 end
 
 RPSGame.new.play
+
